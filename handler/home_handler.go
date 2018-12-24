@@ -12,6 +12,5 @@ func HomeHandler(c echo.Context) error {
 	// be equal to the value stated in the {{ define }} statement in "view/home.html"
 	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
 		"name": "HOME",
-		"msg":  "Hello, Jonathan!",
 	})
 }

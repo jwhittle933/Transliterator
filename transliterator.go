@@ -6,8 +6,6 @@ import (
 	"strings"
 	"text/template"
 
-	handler "transliterator/handler"
-
 	"github.com/labstack/echo"
 )
 
@@ -29,7 +27,10 @@ func main() {
 	e.Renderer = &Template{
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
-	e.GET("/", handler.HomeHandler)
+	//e.File registers new route with static file to serve
+	e.File("/", "views/index.html")
+	e.File("/about", "views/about.html")
+	// e.GET("/", handler.HomeHandler)
 	e.GET("/words/:word", transliterate)
 	e.Logger.Fatal(e.Start(":1323"))
 }
