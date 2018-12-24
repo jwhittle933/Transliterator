@@ -2,15 +2,11 @@ package main
 
 import (
 	"io"
-	"net/http"
-	"strings"
 	"text/template"
+	"transliterator/handler"
 
 	"github.com/labstack/echo"
 )
-
-var mGreek = map[string]string{"α": "a", "β": "b", "γ": "g", "δ": "d", "ε": "e", "ζ": "z", "η": "e", "θ": "th", "ι": "i", "κ": "k", "λ": "l", "μ": "m", "ν": "n", "ξ": "ks", "ο": "o", "π": "p", "ρ": "r", "σ": "s", "ς": "s", "τ": "t", "υ": "y", "φ": "ph", "χ": "ch", "ψ": "ps", "ω": "o"}
-var mHebrew = map[string]string{"א": "'", "ב": "b", "ג": "g", "ד": "d", "ה": "h", "ו": "w", "ז": "z", "ח": "ch", "ט": "t", "י": "y", "כ": "k", "ך": "k", "ל": "l", "מ": "m", "ם": "m", "נ": "n", "ן": "n", "ס": "s", "ע": "'", "פ": "p", "ף": "ph", "צ": "ts", "ץ": "ts", "ק": "q", "ר": "r", "שׁ": "s", "שׂ": "sh", "ת": "th"}
 
 // Template struct
 type Template struct {
@@ -30,24 +26,6 @@ func main() {
 	//e.File registers new route with static file to serve
 	e.File("/", "views/index.html")
 	e.File("/about", "views/about.html")
-	// e.POST("/", handlerFunc)
-	// e.GET("/", handler.HomeHandler)
-	e.GET("/words/:word", transliterate)
+	e.POST("/", handler.HomeHandler)
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-//Function to handle language input and transliteration
-func transliterate(c echo.Context) error {
-	// lang := c.FormValue("language")
-	lang := "GREEK"
-	lang = strings.ToUpper(lang)
-	text := c.Param("word")
-	var str string
-	if lang == "GREEK" {
-		for _, value := range text {
-			letter := string(value)
-			str += mGreek[letter]
-		}
-	}
-	return c.String(http.StatusOK, str)
 }
