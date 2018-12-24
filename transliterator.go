@@ -30,6 +30,7 @@ func main() {
 	//e.File registers new route with static file to serve
 	e.File("/", "views/index.html")
 	e.File("/about", "views/about.html")
+	// e.POST("/", handlerFunc)
 	// e.GET("/", handler.HomeHandler)
 	e.GET("/words/:word", transliterate)
 	e.Logger.Fatal(e.Start(":1323"))
