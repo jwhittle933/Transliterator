@@ -1,3 +1,4 @@
+{{ define "index"}}
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,36 +12,35 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
   </head>
   <body>
-      <div id="app"></div>
+      <div id="app">
+          <div class="jumbotron container mt-5 mx-auto w-75">
+              <h1 style="font-family: Nunito; font-size: 3.5em;" class="text-center mb-5">Transliterator</h1>
+              <form method="POST" action="/">
+                <div class="d-flex justify-content-between p-3">
+                  <div class="form-group mb-2 w-50">
+                    <span style="font-size: 3em; cursor: pointer;" class="ml-1">
+                      <i class="fas fa-angle-up" @click="langUp"></i>
+                    </span>
+                    <div style="width: 15vw; border-radius: 10px" class="bg-dark mt-3">
+                      <p style="font-family: Nunito; font-size: 3em;" class="text-light ml-1">{{ `{{ currentLang }}` }}</p>
+                    </div>
+                    <span style="font-size: 3em; cursor: pointer;" class="ml-1">
+                      <i class="fas fa-angle-down" @click="langDown"></i>
+                    </span>
+                  </div>
+                  <div class ="form-group mx-sm-3 mb-2">
+                    <label for="inputPassword2" class="sr-only">Password</label>
+                    <textarea name="text" type="text" cols="50" rows="10" class="form-control bg-dark text-white" placeholder="Type your text here..."></textarea>
+                  </div>
+                </div>
+                <input type="hidden" name="lang" :value="currentLang"/>
+                <button type="submit" class="btn btn-block btn-outline-primary mt-5">Transliterate!</button>
+              </form>
+            </div>
+      </div>
       <script>
         new Vue({
           el: "#app",
-          template:`
-          <div class="jumbotron container mt-5 mx-auto w-75">
-            <h1 style="font-family: Nunito; font-size: 3.5em;" class="text-center mb-5">Transliterator</h1>
-            <form method="POST" action="/">
-              <div class="d-flex justify-content-between p-3">
-                <div class="form-group mb-2 w-50">
-                  <span style="font-size: 3em; cursor: pointer;" class="ml-1">
-                    <i class="fas fa-angle-up" @click="langUp"></i>
-                  </span>
-                  <div style="width: 15vw; border-radius: 10px" class="bg-dark mt-3">
-                    <p style="font-family: Nunito; font-size: 3em;" class="text-light ml-1">{{ currentLang }}</p>
-                  </div>
-                  <span style="font-size: 3em; cursor: pointer;" class="ml-1">
-                    <i class="fas fa-angle-down" @click="langDown"></i>
-                  </span>
-                </div>
-                <div class ="form-group mx-sm-3 mb-2">
-                  <label for="inputPassword2" class="sr-only">Password</label>
-                  <textarea name="text" type="text" cols="50" rows="10" class="form-control bg-dark text-white" placeholder="Type your text here..."></textarea>
-                </div>
-              </div>
-              <input type="hidden" name="lang" :value="currentLang"/>
-              <button type="submit" class="btn btn-block btn-outline-primary mt-5">Transliterate!</button>
-            </form>
-          </div>
-          `,
           data() {
             return {
               testText: "This is a test",
@@ -74,3 +74,4 @@
       </script>
   </body>
 </html>
+{{ end }}

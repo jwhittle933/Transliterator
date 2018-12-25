@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/labstack/echo"
 )
@@ -12,22 +11,34 @@ var mHebrew = map[string]string{"א": "'", "ב": "b", "ג": "g", "ד": "d", "ה"
 
 //HomeHandler path controller
 func HomeHandler(c echo.Context) error {
+	lang := c.FormValue("language")
+	text := c.FormValue("text")
+	output := transliterate(lang, text)
 	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-		"name": "HOME",
+		"output": output,
 	})
 }
 
-func transliterate(c echo.Context) error {
-	// lang := c.FormValue("language")
-	lang := "GREEK"
-	lang = strings.ToUpper(lang)
-	text := c.Param("word")
+func transliterate(language string, text string) string {
 	var str string
-	if lang == "GREEK" {
+	if language == "Greek" {
 		for _, value := range text {
 			letter := string(value)
-			str += mGreek[letter]
+			if letter == " " {
+				str += " "
+			} else {
+				str += mGreek[letter]
+			}
+		}
+	} else if language == "Hebrew" {
+		for _, value := range text {
+			letter := string(value)
+			if letter == " " {
+				str += " "
+			} else {
+				str += mHebrew[letter]
+			}
 		}
 	}
-	return c.String(http.StatusOK, str)
+	return str
 }
