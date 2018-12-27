@@ -7,6 +7,7 @@ import (
 	"transliterator/handler"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 //Template for view render
@@ -21,6 +22,10 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 func main() {
 	e := echo.New()
+	e.Use(middleware.Static("/assets"))
+
+	//Static route serves from assets directory
+	e.Static("/static", "assets")
 
 	t := &Template{
 		templates: template.Must(template.ParseGlob("views/*.html")),
@@ -30,6 +35,7 @@ func main() {
 	e.GET("/", Index)
 	e.GET("/about", About)
 	e.POST("/", handler.HomeHandler)
+
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
