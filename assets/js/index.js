@@ -1,3 +1,4 @@
+// import Vue from 'vue'
 
 const transliterator = new Vue({
     el: "#app",
@@ -6,7 +7,8 @@ const transliterator = new Vue({
         testText: "This is a test",
         greek: false,
         langOptions: ["Greek", "Hebrew", "Syriac", "Aramaic"],
-        currentLang: ""
+        currentLang: "",
+        direction: "ltr"
       }
     },
     created() {
@@ -20,6 +22,7 @@ const transliterator = new Vue({
         } else {
           this.currentLang = this.langOptions[currentIndex + 1]
         }
+        this.currentLang !== "Greek" ? this.direction = "rtl" : this.direction = "ltr"
       },
       langDown(){
         var currentIndex = this.langOptions.findIndex(x => x === this.currentLang)
@@ -28,6 +31,7 @@ const transliterator = new Vue({
         } else {
           this.currentLang = this.langOptions[currentIndex - 1]
         }
+        this.currentLang !== "Greek" ? this.direction = "rtl" : this.direction = "ltr"
       }
     }
   })
