@@ -62,6 +62,20 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.font-main{
+    font-family: Nunito;
+}
+.font-lg {
+    font-size: 3em;
+}
+.font-xl {
+    font-size: 3.5em;
+}
+.width-md {
+    width: 15vw;
+}
+.pointer {
+    cursor: pointer;
+}
 </style>

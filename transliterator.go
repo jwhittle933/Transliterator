@@ -31,7 +31,7 @@ func main() {
 		//uncomment below to move template rendering to /views
 		// templates: template.Must(template.ParseGlob("views/*.html")),
 
-		//uncoment below to use Vue in Echo Template
+		//uncoment below to use Vue in Echo Template, add {{ define "index"}} && {{ end }} to index.html in /dist every time the Vue project is built
 		templates: template.Must(template.ParseGlob("assets/transliterator/dist/*.html")),
 	}
 	e.Renderer = t
