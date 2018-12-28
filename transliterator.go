@@ -25,10 +25,14 @@ func main() {
 	e.Use(middleware.Static("/assets"))
 
 	//Static route serves from assets directory
-	e.Static("/static", "assets")
+	e.Static("/", "assets/transliterator/dist")
 
 	t := &Template{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+		//uncomment below to move template rendering to /views
+		// templates: template.Must(template.ParseGlob("views/*.html")),
+
+		//uncoment below to use Vue in Echo Template
+		templates: template.Must(template.ParseGlob("assets/transliterator/dist/*.html")),
 	}
 	e.Renderer = t
 
