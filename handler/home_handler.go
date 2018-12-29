@@ -11,8 +11,11 @@ var mHebrew = map[string]string{"א": "'", "ב": "b", "ג": "g", "ד": "d", "ה"
 
 //MainHandler path controller
 func MainHandler(c echo.Context) error {
-	lang := c.FormValue("language")
-	text := c.FormValue("text")
+	lang := c.QueryParam("language")
+	text := c.QueryParam("text")
+	if len(lang) == 0 || len(text) == 0 {
+		return c.String(http.StatusOK, "No language or text submitted.")
+	}
 	output := transliterate(lang, text)
 	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
 		"output": output,
