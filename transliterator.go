@@ -38,7 +38,7 @@ func main() {
 
 	e.GET("/", Index)
 	e.GET("/about", About)
-	e.POST("/", handler.HomeHandler)
+	e.POST("/", handler.MainHandler)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

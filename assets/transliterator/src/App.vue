@@ -15,25 +15,28 @@
             </span>
           </div>
           <div class ="form-group mx-sm-3 mb-2">
-            <textarea name="text" type="text" cols="50" rows="10" :dir="direction" class="form-control bg-dark text-white" placeholder="..."></textarea>
+            <textarea name="text" type="text" cols="50" rows="10" :dir="direction" v-model="text" class="form-control bg-dark text-white" placeholder="..."></textarea>
           </div>
         </div>
         <input type="hidden" name="lang" :value="currentLang"/>
-        <button type="submit" class="btn btn-block btn-outline-primary mt-5">Transliterate!</button>
+        <button type="submit" class="btn btn-block btn-outline-primary mt-5" @click.prevent="submit">Transliterate!</button>
       </form>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'app',
     data() {
       return {
-        testText: "This is a test",
-        greek: false,
         langOptions: ["Greek", "Hebrew", "Syriac", "Aramaic"],
         currentLang: "",
-        direction: "ltr"
+        direction: "ltr",
+        responseText: "",
+        text: "",
+        transText: ""
       }
     },
     created() {
@@ -57,6 +60,15 @@ export default {
           this.currentLang = this.langOptions[currentIndex - 1]
         }
         this.currentLang !== "Greek" ? this.direction = "rtl" : this.direction = "ltr"
+      },
+      submit(){
+            axios.post("/", { params: {
+                    language: this.currentLang,
+                    text: this.text
+                }
+            }).then( res => {
+                this.transText = res.data
+            }).catch( e => { this.transText = "Sorry, there was an error on our side: " + e})
       }
     }
 }
