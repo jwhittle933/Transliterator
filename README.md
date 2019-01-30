@@ -1,4 +1,7 @@
 # Greek and Hebrew Transliterator
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/jwhittle933/Transliterator.svg)](https://greenkeeper.io/)
+
 For transliterating large chunks of Greek and Hebrew text (and eventually with support for Syriac)
 
 ## Technologies
